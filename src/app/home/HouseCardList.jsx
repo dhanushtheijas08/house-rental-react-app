@@ -3,7 +3,7 @@ import { fetchHouseList } from "@/service/apiHouse";
 import { useQuery } from "@tanstack/react-query";
 import HouseCardSkeleton from "./HouseCardSkeleton";
 
-const HouseCardList = () => {
+const HouseCardList = ({ limit = 0 }) => {
   const { isPending, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: fetchHouseList,
@@ -12,11 +12,17 @@ const HouseCardList = () => {
     <HouseCardSkeleton key={index} />
   ));
 
+  let displayedData = data;
+
+  if (limit > 0) {
+    displayedData = data?.slice(0, limit);
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {isPending
         ? renderHouseCardSkeleton
-        : data.map((house) => (
+        : displayedData.map((house) => (
             <HouseCard
               id={house.id}
               houseAddress={house.address}

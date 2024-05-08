@@ -19,6 +19,7 @@ import CreateNewHouseForm from "./app/admin/CreateNewHouseForm";
 
 import HouseDetails from "./pages/HouseDetails/HouseDetails";
 import { ProtectedRoute } from "./app/admin/ProtectedRoute";
+import PageNotFound from "./pages/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -72,7 +73,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <div>Not Found</div>,
+    element: <PageNotFound />,
   },
 ]);
 

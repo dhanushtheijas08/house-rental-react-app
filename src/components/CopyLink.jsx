@@ -1,4 +1,5 @@
-import { Copy, CopyCheckIcon } from "lucide-react";
+import { useState } from "react";
+import { Copy, Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +19,7 @@ import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 
 const CopyLink = () => {
   const { copyToClipboard } = useCopyToClipboard();
+  const [isCopied, setIsCopied] = useState(false);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -48,10 +50,17 @@ const CopyLink = () => {
             type="submit"
             size="sm"
             className="px-3"
-            onClick={() => copyToClipboard(window.location.href)}
+            onClick={() => {
+              copyToClipboard(window.location.href);
+              setIsCopied(true);
+            }}
           >
             <span className="sr-only">Copy</span>
-            <Copy className="h-4 w-4" />
+            {isCopied ? (
+              <Check className="h-4 w-4" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
           </Button>
         </div>
       </DialogContent>

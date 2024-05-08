@@ -11,3 +11,10 @@ export function formatIndianRupee(number) {
     .replace(/\d(?=(\d{3})+\.)/g, "$&,");
   return rupeeSymbol + formattedNumber;
 }
+
+export function calculateDiscountPercentage(marketPrice, offerPrice) {
+  const discount = marketPrice - offerPrice;
+  const discountPercentage = (discount / marketPrice) * 100;
+
+  return Math.round(discountPercentage);
+}

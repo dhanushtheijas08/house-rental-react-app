@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const links = [
-  { to: "/", text: "Home" },
+  { to: "/sign-up", text: "Register" },
   { to: "/login", text: "Login" },
 ];
 
