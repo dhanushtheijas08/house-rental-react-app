@@ -11,13 +11,12 @@ import Login from "./app/auth/Login.jsx";
 import AppLayout from "./AppLayout.jsx";
 import MainPage from "./app/home/MainPage.jsx";
 import SignUp from "./app/auth/SignUp.jsx";
-import PropertyOverview from "./components/PropertyOverview";
-import PropertyLocation from "./components/PropertyLocation";
+import Payment from "@/components/Payment";
 import AllHouseList from "./app/home/AllHouseList";
 import AdminDashboard from "./app/admin/AdminDashboard";
 import HouseCardList from "./app/home/HouseCardList";
 import CreateNewHouseForm from "./app/admin/CreateNewHouseForm";
-import Payment from "./pages/Payment";
+
 import HouseDetails from "./pages/HouseDetails/HouseDetails";
 import { ProtectedRoute } from "./app/admin/ProtectedRoute";
 
@@ -37,22 +36,12 @@ const router = createBrowserRouter([
       {
         path: "house/:id",
         element: <HouseDetails />,
-        children: [
-          {
-            path: "house/:id/overview",
-            element: <PropertyOverview />,
-          },
-          {
-            path: "house/:id/location",
-            element: <PropertyLocation />,
-          },
-        ],
-      },
-      {
-        path: "/payment",
-        element: <Payment />,
       },
     ],
+  },
+  {
+    path: "house/:id/payment",
+    element: <Payment />,
   },
   {
     path: "/login",

@@ -20,22 +20,43 @@ import {
 } from "@/components/ui/card";
 import { BellRing } from "lucide-react";
 import Separator from "@/components/Separator";
-import { Link, Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchHouseById } from "@/service/apiHouse";
 import { cn, formatIndianRupee } from "@/lib/utils";
-import { useState } from "react";
+import Map from "@/components/Map";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { set } from "react-hook-form";
+import NavigationButton from "@/components/NavigationButton";
 const HouseDetails = () => {
+  const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [isLiked, setIsLiked] = useState(false);
+  // const [storageVal, setStorageVal, appendToStorage, removeFromStorage] =
+  //   useLocalStorage("likedData", []);
+  // console.log(storageVal);
   const params = useParams();
-  const handleOnclickFavoriteButton = () => {
-    console.log(params.id);
-  };
+
+  const handleOnclickFavoriteButton = () => setIsLiked(!isLiked);
+
   const { isPending, error, data } = useQuery({
     queryKey: ["fetchHouseListById"],
     queryFn: () => fetchHouseById(params.id),
   });
-  console.log(data);
+  const getGeoLocation = async (address) => {
+    if (!address) return;
+    const location = await fetch(
+      `https://geocode.maps.co/search?q=${address}&api_key=663b44d896c33232676348foufd2cf9`
+    );
+    const data = await location.json();
+    setLocation({
+      lat: data[0].lat,
+      lng: data[0].lon,
+    });
+  };
 
+  useEffect(() => {
+    getGeoLocation("Paris, France");
+  }, []);
   const mainImageUrl =
     data?.houseImages?.[0] ||
     "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bHV4dXJ5JTIwaG91c2V8ZW58MHx8MHx8fDA%3D";
@@ -47,7 +68,6 @@ const HouseDetails = () => {
   ];
 
   const [activeSection, setActiveSection] = useState("overview");
-  console.log(activeSection);
 
   return (
     <main className="flex flex-col mt-10">
@@ -56,6 +76,7 @@ const HouseDetails = () => {
         showFavoriteButton
         showShareButton
         handleOnclickFavoriteButton={handleOnclickFavoriteButton}
+        isLiked={isLiked}
       />
 
       {!isPending && (
@@ -101,7 +122,7 @@ const HouseDetails = () => {
                 <Button
                   variant="outline"
                   className={cn("border-2", {
-                    "border-primary": activeSection === "loaction",
+                    "border-primary": activeSection === "location",
                   })}
                   onClick={() => setActiveSection("location")}
                 >
@@ -109,7 +130,7 @@ const HouseDetails = () => {
                 </Button>
               </div>
 
-              <div>
+              <div className="mt-3">
                 {
                   {
                     overview: (
@@ -123,15 +144,24 @@ const HouseDetails = () => {
                       </div>
                     ),
                     location: (
-                      <div className="mt-5">
-                        <h3 className="text-lg font-semibold">
-                          Property Location
-                        </h3>
-                        <p className="text-muted-foreground">{data.address}</p>
-                      </div>
+                      <Map
+                        markers={[
+                          {
+                            geocode: [location.lat, location.lng],
+                            popUp: data.address,
+                          },
+                        ]}
+                      />
                     ),
                   }[activeSection]
                 }
+
+                {/* const markers = [
+  {
+    geocode: [48.86, 2.3522],
+    popUp: "Paris",
+  },
+]; */}
               </div>
             </div>
 
@@ -169,7 +199,12 @@ const HouseDetails = () => {
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col gap-5">
-                <Button className="w-full">Buy the house</Button>
+                <NavigationButton
+                  className="w-full"
+                  to={`/house/${params.id}/payment`}
+                >
+                  Buy the house
+                </NavigationButton>
               </CardFooter>
             </Card>
           </div>

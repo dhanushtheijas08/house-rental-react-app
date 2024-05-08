@@ -19,9 +19,24 @@ import {
 } from "@/components/ui/card";
 import { BellRing } from "lucide-react";
 import Separator from "./Separator";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import SectionHeading from "./SectionHeading";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 const HouseList = () => {
+  // const params = useParams();
+  // const [likedData, setLikedData, appendToLikedData] = useLocalStorage(
+  //   "likedData",
+  //   []
+  // );
+  // const handleLikedData = () => {
+  //   const data = appendToLikedData(params.id);
+  //   for (let i = 0; i < data.length; i++) {
+  //     if (data[i] === params.id) {
+  //       setIsLiked(true);
+  //     }
+  //   }
+  // };
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <main className="flex flex-col mt-10">
       <div className="flex justify-between">
@@ -33,8 +48,19 @@ const HouseList = () => {
           <Button variant="outline" size="icon" className="shadow-sm">
             <IoShareSocialOutline className="h-7 w-7 text-primary" />
           </Button>
-          <Button variant="outline" size="icon" className="shadow-sm ">
-            <GoHeart className="h-7 w-7 text-primary" />
+          <Button
+            variant="outline"
+            size="icon"
+            className="shadow-sm"
+            onClick={() => console.log("click")}
+          >
+            {
+              <GoHeart
+                className={`h-7 w-7 ${
+                  isLiked ? "text-primary" : "text-red-400"
+                }`}
+              />
+            }
           </Button>
         </div>
       </div>

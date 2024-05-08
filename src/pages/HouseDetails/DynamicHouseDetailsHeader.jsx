@@ -4,12 +4,14 @@ import { GoHeart } from "react-icons/go";
 import { Button } from "@/components/ui/button";
 import BackButton from "@/components/BackButton";
 import SectionHeading from "@/components/SectionHeading";
+import CopyLink from "@/components/CopyLink";
 
 const CustomHeader = ({
   title,
   showShareButton,
   showFavoriteButton,
   handleOnclickFavoriteButton,
+  isLiked,
 }) => {
   return (
     <div className="flex justify-between">
@@ -20,15 +22,7 @@ const CustomHeader = ({
         </SectionHeading>
       </div>
       <div className="flex items-center gap-2">
-        {showShareButton && (
-          <Button
-            variant="outline"
-            size="icon"
-            className="shadow-sm w-7 h-7 sm:w-9 md:w-10 sm:h-9 md:h-10"
-          >
-            <IoShareSocialOutline className="h-5 sm:h-7 w-5 sm:w-7 text-primary" />
-          </Button>
-        )}
+        {showShareButton && <CopyLink />}
         {showFavoriteButton && (
           <Button
             variant="outline"
@@ -36,7 +30,9 @@ const CustomHeader = ({
             className="shadow-sm w-7 h-7 sm:w-9 md:w-10 sm:h-9 md:h-10"
             onClick={handleOnclickFavoriteButton}
           >
-            <GoHeart className="h-5 sm:h-7 w-5 sm:w-7 text-primary" />
+            <GoHeart
+              className={`h-7 w-7 ${isLiked ? "fill-red-400" : "text-primary"}`}
+            />
           </Button>
         )}
       </div>
