@@ -39,7 +39,7 @@ const Payment = () => {
         </div>
 
         <div className=" p-3  h-fit w-full md:h-full md:w-[50%] flex flex-col justify-between">
-          <Button className="flex gap-1 items-center text-lg w-full max-md:my-4">
+          <Button className="flex gap-1 items-center text-lg w-full max-md:my-4 ">
             <IoLogoApple className="w-6 h-6" /> Pay
           </Button>
 
@@ -183,9 +183,7 @@ const Payment = () => {
             </div>
           </div>
 
-          <Button className=" bg-black text-md w-full max-md:mt-5">
-            Pay $134.00
-          </Button>
+          <Button className="text-md w-full max-md:mt-5">Pay $134.00</Button>
         </div>
       </div>
     </>
