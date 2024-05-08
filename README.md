@@ -37,11 +37,9 @@ House GRW is a house rental application designed to streamline the booking proce
 
 ## Screenshots
 
-![House Example 1](/path/to/house1.png)
-_House Example 1: Beautiful house interior._
-
-![House Example 2](/path/to/house2.png)
-_House Example 2: Stunning house exterior._
+![House Example 1](/public/sample-3.png)
+![House Example 2](/public/sample-2.png)
+![House Example 3](/public/sample-1.png)
 
 ## Installation
 
