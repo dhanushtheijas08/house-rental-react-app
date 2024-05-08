@@ -35,8 +35,11 @@ const Cta = () => {
         Contact us to get more rental income from your home with our
         professional rental Service
       </p>
-      <NavigationButton to="/all-houses" className="max-w-fit rounded-full ">
-        Get an offer <FaArrowRight className="ml-2" />
+      <NavigationButton
+        to="/all-houses"
+        className="max-w-fit rounded-full mt-4"
+      >
+        See More Houses <FaArrowRight className="ml-2" />
       </NavigationButton>
     </section>
   );

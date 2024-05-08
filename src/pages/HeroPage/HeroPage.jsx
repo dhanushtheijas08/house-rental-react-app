@@ -30,7 +30,7 @@ const HeroPage = () => {
           to="/all-houses"
           className="max-w-fit rounded-full mt-4"
         >
-          Get an offer <FaArrowRight className="ml-2" />
+          See More Houses <FaArrowRight className="ml-2" />
         </NavigationButton>
         <Tags />
       </div>
