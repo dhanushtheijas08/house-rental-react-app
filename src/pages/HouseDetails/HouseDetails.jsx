@@ -35,10 +35,9 @@ const HouseDetails = () => {
   ];
 
   return (
-    <main className="flex flex-col mt-10">
+    <main className="flex flex-col mt-10 gap-10">
       <DynamicHouseDetailsHeader
         title="House Detials"
-        showFavoriteButton
         showShareButton
         handleOnclickFavoriteButton={handleOnclickFavoriteButton}
         isLiked={isLiked}

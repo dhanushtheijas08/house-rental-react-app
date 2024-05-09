@@ -1,4 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonSVG from "@/assets/img-skeleton.svg";
 
 const ImageGallerySkeleton = () => {
