@@ -29,7 +29,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const HouseDetialsData = ({ data }) => {
-  console.log(data);
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const [activeSection, setActiveSection] = useState("location");
   const params = useParams();

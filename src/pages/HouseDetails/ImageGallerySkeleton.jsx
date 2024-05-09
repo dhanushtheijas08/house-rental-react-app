@@ -1,19 +1,36 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import SkeletonSVG from "@/assets/img-skeleton.svg";
 
 const ImageGallerySkeleton = () => {
   return (
     <div
-      className={`flex relative flex-col space-y-3 w-full md:w-80 h-96 overflow-hidden rounded`}
+      className={`grid grid-cols-1 md:grid-cols-2 mb-10 gap-4 mt-5 h-[28rem] rounded`}
     >
       <img
         src={SkeletonSVG}
-        className="md:w-80 h-72 rounded-xl object-cover animate-pulse bg-muted"
+        className="w-full h-full object-cover rounded-lg shadow-sm animate-pulse bg-muted"
         alt="skeleton image"
       />
-      <div className="space-y-2">
-        <Skeleton className="h-6 w-52" />
-        <Skeleton className="h-4 w-44" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4 gap-y-4">
+        <img
+          src={SkeletonSVG}
+          className="md:w-80 h-full rounded-xl shadow-sm object-cover animate-pulse bg-muted"
+          alt="skeleton image"
+        />
+        <img
+          src={SkeletonSVG}
+          className="md:w-80 h-full rounded-xl shadow-sm object-cover animate-pulse bg-muted"
+          alt="skeleton image"
+        />
+        <img
+          src={SkeletonSVG}
+          className="md:w-80 h-full rounded-xl shadow-sm object-cover animate-pulse bg-muted"
+          alt="skeleton image"
+        />
+        <img
+          src={SkeletonSVG}
+          className="md:w-80 h-full rounded-xl shadow-sm object-cover animate-pulse bg-muted"
+          alt="skeleton image"
+        />
       </div>
     </div>
   );

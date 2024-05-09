@@ -12,7 +12,6 @@ const AppLayout = () => {
   const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
   const newUser = useSelector((state) => state.auth.user);
-  console.log(newUser);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
