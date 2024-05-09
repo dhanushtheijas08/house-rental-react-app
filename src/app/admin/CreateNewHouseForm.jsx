@@ -9,6 +9,7 @@ import AppFormField from "@/components/AppFormField";
 // import FileUpload from "./FileUpload";
 import { createNewHouse } from "@/service/apiHouse";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const CreateNewHouseForm = () => {
   const [houseImages, setHouseImages] = useState([]);
@@ -16,7 +17,7 @@ const CreateNewHouseForm = () => {
     mutationFn: (newHouseData, houseImages) =>
       createNewHouse(newHouseData, houseImages),
     onSuccess: () => {
-      console.log("New house added successfully");
+      toast.success("New house added successfully");
     },
   });
 
@@ -96,8 +97,8 @@ const CreateNewHouseForm = () => {
           <AppFormField
             key={data.name}
             name={data.name}
-            type={data.type}
-            placeholder={data.placeholder}
+            inputType={data.type}
+            inputPlaceholder={data.placeholder}
             label={data.label}
             form={form}
             isPending={isPending}

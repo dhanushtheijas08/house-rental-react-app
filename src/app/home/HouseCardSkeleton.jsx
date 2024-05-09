@@ -3,11 +3,11 @@ import SkeletonSVG from "@/assets/img-skeleton.svg";
 const HouseCardSkeleton = () => {
   return (
     <div
-      className={`flex relative flex-col space-y-3 w-full md:w-80 h-96 overflow-hidden rounded`}
+      className={`flex relative flex-col space-y-3 w-full  h-96 overflow-hidden rounded`}
     >
       <img
         src={SkeletonSVG}
-        className="md:w-80 h-72 rounded-xl object-cover animate-pulse bg-muted"
+        className="h-72 max-w-80 rounded-xl object-cover animate-pulse bg-muted"
         alt="skeleton image"
       />
       <div className="space-y-2">

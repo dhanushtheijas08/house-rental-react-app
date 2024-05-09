@@ -5,10 +5,9 @@ import { loginSchema } from "../schema/authSchema";
 import { Form } from "@/components/ui/form";
 import AppFormField from "@/components/AppFormField";
 import { Button } from "@/components/ui/button";
-import { auth } from "@/service/firebase-config";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { loginUser } from "@/service/apiAuth";
 import { loginSuccess } from "@/store/authReducer";
 
 const formDetials = [
@@ -36,13 +35,11 @@ const LoginForm = () => {
     },
   });
   const dispatch = useDispatch();
-
+  const {
+    formState: { isSubmitting },
+  } = form;
   const onUserLogin = async (values) => {
-    const user = await signInWithEmailAndPassword(
-      auth,
-      values.email,
-      values.password
-    );
+    const user = await loginUser(values);
     if (!user) return;
     dispatch(
       loginSuccess({ userEmail: user.user.email, userUid: user.user.uid })
@@ -62,10 +59,11 @@ const LoginForm = () => {
               label={formItems.label}
               name={formItems.name}
               key={formItems.name}
+              isPending={isSubmitting}
             />
           ))}
 
-          <Button type="submit" className="w-full mt-6">
+          <Button type="submit" disabled={isSubmitting} className="w-full mt-6">
             Login
           </Button>
         </form>

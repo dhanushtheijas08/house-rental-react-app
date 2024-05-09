@@ -1,24 +1,49 @@
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "./firebase-config";
-
-export const createUser = async (values) => {
-  console.log(values);
+import { toast } from "sonner";
+const createUser = async (values) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       values.email,
       values.password
     );
+    toast.success("User created successfully");
     const userId = userCredential.user.uid;
     return userCredential;
   } catch (error) {
     console.log(error);
-    if (error.code === "auth/email-already-in-use") {
-      throw new Error("The email address is already in use.");
-    } else if (error.code === "auth/invalid-email") {
-      throw new Error("The email address is invalid.");
+    if (error.code === "auth/email-already-in-use")
+      toast.error("The email address is already in use.");
+    else if (error.code === "auth/invalid-email")
+      toast.error("The email address is invalid.");
+    else toast.error("Failed to create user. Please try again later.");
+    return;
+  }
+};
+
+const loginUser = async (values) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+    toast.success("Login Successful");
+    return userCredential;
+  } catch (error) {
+    console.error("Login error:", error);
+
+    if (error.code === "auth/invalid-credential") {
+      toast.error("Invalid User Credential");
+      return;
     } else {
-      throw new Error("Failed to create user. Please try again later.");
+      toast.error("Failed to login. Please try again later.");
+      return;
     }
   }
 };
@@ -26,10 +51,12 @@ export const createUser = async (values) => {
 const logoutUser = async () => {
   try {
     await signOut(auth);
+    toast.success("Logout Successful");
     return true;
   } catch (error) {
     console.error(error);
+    toast.error("Failed to logout. Please try again later.");
   }
 };
 
-export { logoutUser };
+export { logoutUser, createUser, loginUser };

@@ -25,7 +25,7 @@ export const GlobalWrapper = () => {
   return (
     <>
       <Outlet />
-      <Toaster />
+      <Toaster position="top-right" />
     </>
   );
 };
