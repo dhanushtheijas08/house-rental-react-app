@@ -6,6 +6,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 const AppFormField = ({
   form,

@@ -10,9 +10,11 @@ import AppFormField from "@/components/AppFormField";
 import { createNewHouse } from "@/service/apiHouse";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Textarea } from "@/components/ui/textarea";
 
 const CreateNewHouseForm = () => {
   const [houseImages, setHouseImages] = useState([]);
+  const [textAreaValue, setTextAreaValue] = useState("");
   const { mutate, isPending } = useMutation({
     mutationFn: (newHouseData, houseImages) =>
       createNewHouse(newHouseData, houseImages),
@@ -27,9 +29,9 @@ const CreateNewHouseForm = () => {
       username: "",
     },
   });
-  function onSubmit(values) {
-    mutate(values, houseImages);
-  }
+  const onSubmit = (values) =>
+    mutate({ ...values, houseDesc: textAreaValue }, houseImages);
+
   const formData = [
     {
       name: "houseName",
@@ -61,12 +63,7 @@ const CreateNewHouseForm = () => {
       label: "Seller Name",
       placeholder: "Ram Kumar",
     },
-    {
-      name: "houseDesc",
-      type: "textarea",
-      label: "House Description",
-      placeholder: "Enter your House Description here....",
-    },
+
     {
       name: "feature1",
       type: "number",
@@ -91,7 +88,7 @@ const CreateNewHouseForm = () => {
       {/* <FileUpload setHouseImages={setHouseImages} /> */}
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 my-6 gap-y-2"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 my-6 gap-y-2"
       >
         {formData.map((data) => (
           <AppFormField
@@ -104,7 +101,19 @@ const CreateNewHouseForm = () => {
             isPending={isPending}
           />
         ))}
-
+        <div className="md:col-span-3 sm:col-span-2 col-span-1">
+          <label htmlFor="houseDesc" className="font-semibold text-sm">
+            House Description
+          </label>
+          <Textarea
+            className="w-full mt-2"
+            name="houseDesc"
+            id="houseDesc"
+            onChange={(e) => setTextAreaValue(e.target.value)}
+            value={textAreaValue}
+            placeholder="Enter your House Description here...."
+          />
+        </div>
         <Button type="submit" className="mt-10" disabled={isPending}>
           Submit
         </Button>
