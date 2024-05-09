@@ -25,7 +25,7 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="h-screen overflow-hidden">
+      <div className="h-full overflow-hidden">
         <img
           alt="Login Page image || Beautiful house"
           src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG91c2V8ZW58MHx8MHx8fDA%3D"

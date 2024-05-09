@@ -4,6 +4,14 @@ import { Navigate } from "react-router-dom";
 
 export const ProtectedRoute = ({ children }) => {
   const { isFetching, user } = useAuth();
-  let isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  return isAuthenticated ? children : <Navigate to="/login"></Navigate>;
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  const isUserAuthenticated =
+    isAuthenticated || (user !== null && user !== undefined);
+
+  return isUserAuthenticated ? children : <Navigate to="/login" />;
 };

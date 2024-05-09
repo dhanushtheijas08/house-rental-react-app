@@ -20,60 +20,67 @@ import CreateNewHouseForm from "./app/admin/CreateNewHouseForm";
 import HouseDetails from "./pages/HouseDetails/HouseDetails";
 import { ProtectedRoute } from "./app/admin/ProtectedRoute";
 import PageNotFound from "./pages/PageNotFound";
+import { GlobalWrapper } from "./pages/GlobalWrapper";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: <GlobalWrapper />,
     children: [
       {
         path: "/",
-        element: <MainPage />,
+        element: <AppLayout />,
+        children: [
+          {
+            path: "/",
+            element: <MainPage />,
+          },
+          {
+            path: "/all-houses",
+            element: <AllHouseList />,
+          },
+          {
+            path: "house/:id",
+            element: <HouseDetails />,
+          },
+        ],
       },
       {
-        path: "/all-houses",
-        element: <AllHouseList />,
+        path: "house/:id/payment",
+        element: <Payment />,
       },
       {
-        path: "house/:id",
-        element: <HouseDetails />,
+        path: "/login",
+        element: <Login />,
       },
-    ],
-  },
-  {
-    path: "house/:id/payment",
-    element: <Payment />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/sign-up",
-    element: <SignUp />,
-  },
-  {
-    path: "/admin/dashboard",
-
-    element: (
-      <ProtectedRoute>
-        <AdminDashboard />
-      </ProtectedRoute>
-    ),
-    children: [
+      {
+        path: "/sign-up",
+        element: <SignUp />,
+      },
       {
         path: "/admin/dashboard",
-        element: <HouseCardList />,
+
+        element: (
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            path: "/admin/dashboard",
+            element: <HouseCardList />,
+          },
+          {
+            path: "/admin/dashboard/new-house",
+            element: <CreateNewHouseForm />,
+          },
+        ],
       },
       {
-        path: "/admin/dashboard/new-house",
-        element: <CreateNewHouseForm />,
+        path: "*",
+        element: <PageNotFound />,
       },
     ],
-  },
-  {
-    path: "*",
-    element: <PageNotFound />,
   },
 ]);
 

@@ -10,7 +10,7 @@ const NavBar = () => {
   const renderLinks = links.map((link) => (
     <li key={link.to}>
       <Link
-        className="px-3 text-lg rounded text-primary-foreground hover:bg-white/90 hover:text-primary py-2"
+        className="sm:px-3 text-lg rounded text-primary sm:py-2 hover:text-primary-foreground hover:bg-primary transition-all duration-200"
         to={link.to}
       >
         {link.text}
@@ -19,7 +19,7 @@ const NavBar = () => {
   ));
   return (
     <nav>
-      <ul className="flex">{renderLinks}</ul>
+      <ul className="flex flex-col sm:flex-row">{renderLinks}</ul>
     </nav>
   );
 };

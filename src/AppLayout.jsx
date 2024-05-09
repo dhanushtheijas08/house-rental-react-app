@@ -1,37 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./service/firebase-config";
-import { loginSuccess } from "./store/authReducer";
 
 const AppLayout = () => {
-  const [user, setUser] = useState(null);
-  const [isFetching, setIsFetching] = useState(true);
-  const dispatch = useDispatch();
-  const newUser = useSelector((state) => state.auth.user);
-  console.log(newUser);
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        dispatch(loginSuccess(user));
-        setIsFetching(false);
-        return;
-      }
-
-      setUser(null);
-      setIsFetching(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
   return (
-    <div className="font-inter relative flex flex-col p-3">
+    <div className="font-inter relative flex flex-col max-w-7xl mx-auto">
       <Header />
-      <Outlet />
+      <div className="p-3">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

@@ -79,16 +79,28 @@
 .active {
   @apply bg-slate-500 text-primary-foreground;
 }
-
-::-webkit-scrollbar {
-  display: none;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
-* {
-  scrollbar-width: none;
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0f172a;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust as needed */
 }
 
 .leaflet-container {
-  height: 40vh;
+  height: 35vh;
   width: 100%;
   border-radius: 10px;
 }

@@ -44,7 +44,9 @@ const LoginForm = () => {
       values.password
     );
     if (!user) return;
-    dispatch(loginSuccess(user));
+    dispatch(
+      loginSuccess({ userEmail: user.user.email, userUid: user.user.uid })
+    );
     navigate("/admin/dashboard");
   };
 

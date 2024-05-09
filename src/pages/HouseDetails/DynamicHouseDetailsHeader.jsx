@@ -1,4 +1,3 @@
-import { IoShareSocialOutline } from "react-icons/io5";
 import { GoHeart } from "react-icons/go";
 
 import { Button } from "@/components/ui/button";

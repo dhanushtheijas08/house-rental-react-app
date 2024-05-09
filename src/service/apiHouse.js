@@ -27,7 +27,6 @@ export const fetchHouseById = async (id) => {
 };
 
 export const createNewHouse = async (houseData, houseImages) => {
-  console.log(houseData);
   const newHouseData = {
     ...houseData,
     features: [houseData.feature1, houseData.feature2, houseData.feature2],

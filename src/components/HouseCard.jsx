@@ -1,11 +1,12 @@
 import { PiArrowCircleUpRight } from "react-icons/pi";
 import { Badge } from "@/components/ui/badge";
 import { formatIndianRupee } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "./ui/button";
 import { deleteHouse } from "@/service/apiHouse";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const HouseCard = ({
   id,
@@ -15,6 +16,7 @@ const HouseCard = ({
   housePrice,
   houseAddress,
 }) => {
+  let location = useLocation();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
@@ -22,6 +24,7 @@ const HouseCard = ({
     mutationKey: "deleteHouse",
     onSuccess: () => {
       queryClient.invalidateQueries("fetchHouseList");
+      toast.success("House deleted successfully");
     },
   });
   const deleteHouseHandler = (e) => {
@@ -46,7 +49,7 @@ const HouseCard = ({
           className="rounded -z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
           alt={`${houseName} cover image || house image`}
         />
-        {isAuthenticated ? (
+        {isAuthenticated && location.pathname.split("/")?.[1] === "admin" ? (
           <Button size="icon" className="z-50" onClick={deleteHouseHandler}>
             <div className="bg-white absolute bottom-2 right-2 rounded-full p-1">
               <svg

@@ -8,7 +8,6 @@ const useFileUpload = () => {
   const imagesListRef = ref(storage, "images/");
 
   const uploadFile = () => {
-    console.log(imageUploads);
     if (imageUploads == null) return;
 
     for (let i = 0; i < imageUploads.length; i++) {
