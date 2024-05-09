@@ -29,7 +29,7 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <div className="font-inter relative flex flex-col p-3">
+    <div className="font-inter relative flex flex-col p-3 max-w-[90rem] mx-auto">
       <Header />
       <Outlet />
       <Footer />

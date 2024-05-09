@@ -46,7 +46,6 @@ const HouseDetails = () => {
         handleOnclickFavoriteButton={handleOnclickFavoriteButton}
         isLiked={isLiked}
       />
-      <ImageGallerySkeleton />
       {isPending ? (
         <ImageGallerySkeleton />
       ) : (
