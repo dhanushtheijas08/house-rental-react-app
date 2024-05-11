@@ -27,12 +27,14 @@ import {
 } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { buyHouse } from "@/store/HouseReducer";
 
 const HouseDetialsData = ({ data }) => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   const [activeSection, setActiveSection] = useState("location");
   const params = useParams();
-
+  const dispatch = useDispatch();
   const getGeoLocation = async (address) => {
     if (!address) return;
     const location = await fetch(
@@ -44,11 +46,10 @@ const HouseDetialsData = ({ data }) => {
       lng: data[0].lon,
     });
   };
-
   useEffect(() => {
-    getGeoLocation("Paris, France");
+    getGeoLocation(data.address);
   }, []);
-  // if (!data) return;
+  if (!data) return;
   return (
     <div className="mt-20 flex gap-5 flex-col md:flex-row">
       <div className="flex-1 flex flex-col gap-2">
@@ -161,6 +162,7 @@ const HouseDetialsData = ({ data }) => {
         </CardContent>
         <CardFooter className="flex flex-col gap-5">
           <NavigationButton
+            callback={() => dispatch(buyHouse(data))}
             className="w-full"
             to={`/house/${params.id}/payment`}
           >

@@ -18,8 +18,10 @@ const createClusterCustomIcon = function (cluster) {
 };
 
 const Map = ({ markers }) => {
+  const { geocode, popUp } = markers[0];
+  if (!geocode?.[0] || !geocode?.[1]) return;
   return (
-    <MapContainer center={[48.8566, 2.3522]} zoom={5}>
+    <MapContainer center={geocode} zoom={10}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -30,8 +32,8 @@ const Map = ({ markers }) => {
         iconCreateFunction={createClusterCustomIcon}
       >
         {markers.map((marker) => (
-          <Marker position={marker.geocode} icon={customIcon}>
-            <Popup>{marker.popUp}</Popup>
+          <Marker position={geocode} icon={customIcon}>
+            <Popup>{popUp}</Popup>
           </Marker>
         ))}
       </MarkerClusterGroup>

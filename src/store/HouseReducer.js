@@ -8,13 +8,12 @@ const houseReducer = createSlice({
   name: "houseData",
   initialState,
   reducers: {
-    addHouse: (state, action) => {
-      state.isAuthenticated = true;
-      state.user = action.payload;
+    buyHouse: (state, action) => {
+      state.houseData = action.payload;
     },
   },
 });
 
-export const { addHouse } = houseReducer.actions;
+export const { buyHouse } = houseReducer.actions;
 
 export default houseReducer.reducer;

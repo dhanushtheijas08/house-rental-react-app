@@ -11,7 +11,6 @@ import Login from "./app/auth/Login.jsx";
 import AppLayout from "./AppLayout.jsx";
 import MainPage from "./app/home/MainPage.jsx";
 import SignUp from "./app/auth/SignUp.jsx";
-import Payment from "@/components/Payment";
 import AllHouseList from "./app/home/AllHouseList";
 import AdminDashboard from "./app/admin/AdminDashboard";
 import HouseCardList from "./app/home/HouseCardList";
@@ -21,6 +20,7 @@ import HouseDetails from "./pages/HouseDetails/HouseDetails";
 import { ProtectedRoute } from "./app/admin/ProtectedRoute";
 import PageNotFound from "./pages/PageNotFound";
 import { GlobalWrapper } from "./pages/GlobalWrapper";
+import Payment from "./pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
