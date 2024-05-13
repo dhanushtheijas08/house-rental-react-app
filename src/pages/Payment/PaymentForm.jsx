@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { formatIndianRupee } from "@/lib/utils";
+import PaymentSuccess from "./PaymentSuccess";
 const formSchema = z.object({
   email: z.string().email({
     message: "Enter a valid email.",
@@ -27,7 +28,9 @@ const PaymentForm = ({ price }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "sample@gmail.com",
+      cradHolder: "Sara",
+      cardDetails: "2324-5656-8989-2525",
     },
   });
 
@@ -102,9 +105,17 @@ const PaymentForm = ({ price }) => {
                 {formatIndianRupee(price || 5000)}
               </p>
             </div>
-            <Button size="lg" className="mt-4 w-full">
+
+            <PaymentSuccess
+              triggerBtn={
+                <Button size="lg" className="mt-4 w-full">
+                  Pay Now
+                </Button>
+              }
+            />
+            {/* <Button size="lg" className="mt-4 w-full">
               Pay Now
-            </Button>
+            </Button> */}
           </div>
         </div>
       </form>
