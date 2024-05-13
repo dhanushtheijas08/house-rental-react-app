@@ -11,7 +11,7 @@ const Payment = () => {
         <Logo isDark />
       </div>
       <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
-        <div className="px-4 pt-8">
+        <div className="px-4 pt-4">
           <div className="relative w-full lg:h-[26.5rem] h-96 overflow-hidden rounded">
             <img
               src={
@@ -25,12 +25,14 @@ const Payment = () => {
 
           <div className="flex flex-col px-2 py-2">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold">{house.houseName}</h3>
+              <h3 className="text-lg font-semibold">
+                {house.houseName || "Simple House"}
+              </h3>
               <p className="text-sm font-semibold">
-                {formatIndianRupee(house.rentalOfferPrice)}
+                {formatIndianRupee(house.rentalOfferPrice || 5000)}
               </p>
             </div>
-            <p className="text-sm">{house.address}</p>
+            <p className="text-sm">{house.address || "Paris, France"}</p>
           </div>
         </div>
 

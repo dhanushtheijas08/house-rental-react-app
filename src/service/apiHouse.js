@@ -30,8 +30,9 @@ export const createNewHouse = async (houseData, houseImages) => {
   const newHouseData = {
     ...houseData,
     features: [houseData.feature1, houseData.feature2, houseData.feature2],
-    // houseImages: houseData.houseImages.map((image) => image.url),
+    houseImages,
   };
+  console.log(newHouseData);
   const newHouseRef = await addDoc(houseListRef, newHouseData);
   return newHouseRef;
 };

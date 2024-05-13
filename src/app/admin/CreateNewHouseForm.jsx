@@ -1,121 +1,143 @@
-import { useMutation } from "@tanstack/react-query";
-
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import FileUpload from "./FileUpload";
 import { houseSchema } from "./schema/house-schema";
 import AppFormField from "@/components/AppFormField";
-// import FileUpload from "./FileUpload";
-import { createNewHouse } from "@/service/apiHouse";
-import { useState } from "react";
-import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
+import { useMutation } from "@tanstack/react-query";
+import { createNewHouse } from "@/service/apiHouse";
+import { useNavigate } from "react-router-dom";
+
+const formData = [
+  {
+    name: "houseName",
+    type: "text",
+    placeholder: "Simple House",
+    label: "House Name",
+  },
+  {
+    name: "address",
+    type: "text",
+    label: "Address",
+    placeholder: "Paris, France",
+  },
+  {
+    name: "rentalOfferPrice",
+    type: "number",
+    label: "Rental Offer Price",
+    placeholder: "2,000",
+  },
+  {
+    name: "rentalOrginalPrice",
+    type: "number",
+    label: "Rental Orginal Price",
+    placeholder: "2,500",
+  },
+  {
+    name: "sellerName",
+    type: "text",
+    label: "Seller Name",
+    placeholder: "Ram Kumar",
+  },
+
+  {
+    name: "feature1",
+    type: "number",
+    label: "No. of Bedrooms",
+    placeholder: "Ram Kumar",
+  },
+  {
+    name: "feature2",
+    type: "number",
+    label: "Bathrooms",
+    placeholder: "2",
+  },
+  {
+    name: "feature3",
+    type: "number",
+    label: "House Area",
+    placeholder: "5.2 m sq.",
+  },
+];
 
 const CreateNewHouseForm = () => {
   const [houseImages, setHouseImages] = useState([]);
-  const [textAreaValue, setTextAreaValue] = useState("");
-  const { mutate, isPending } = useMutation({
-    mutationFn: (newHouseData, houseImages) =>
-      createNewHouse(newHouseData, houseImages),
-    onSuccess: () => {
-      toast.success("New house added successfully");
-    },
-  });
 
   const form = useForm({
     resolver: zodResolver(houseSchema),
     defaultValues: {
-      username: "",
+      username: "sample",
+      houseName: "Simple House",
+      sellerName: "Ram Kumar",
+      rentalOrginalPrice: 2500,
+      rentalOfferPrice: 2000,
+      address: "Paris, France",
+      feature1: 2,
+      feature2: 2,
+      feature3: 5.2,
     },
   });
-  const onSubmit = (values) =>
-    mutate({ ...values, houseDesc: textAreaValue }, houseImages);
 
-  const formData = [
-    {
-      name: "houseName",
-      type: "text",
-      placeholder: "Simple House",
-      label: "House Name",
-    },
-    {
-      name: "address",
-      type: "text",
-      label: "Address",
-      placeholder: "Paris, France",
-    },
-    {
-      name: "rentalOfferPrice",
-      type: "number",
-      label: "Rental Offer Price",
-      placeholder: "2,000",
-    },
-    {
-      name: "rentalOrginalPrice",
-      type: "number",
-      label: "Rental Orginal Price",
-      placeholder: "2,500",
-    },
-    {
-      name: "sellerName",
-      type: "text",
-      label: "Seller Name",
-      placeholder: "Ram Kumar",
-    },
+  const navigate = useNavigate();
 
-    {
-      name: "feature1",
-      type: "number",
-      label: "No. of Bedrooms",
-      placeholder: "Ram Kumar",
+  const { mutate, isPending } = useMutation({
+    mutationKey: "createHouse",
+    mutationFn: (values) => createNewHouse(values, houseImages),
+    onSuccess: () => {
+      navigate("/admin/dashboard");
     },
-    {
-      name: "feature2",
-      type: "number",
-      label: "Bathrooms",
-      placeholder: "2",
-    },
-    {
-      name: "feature3",
-      type: "number",
-      label: "House Area",
-      placeholder: "5.2 m sq.",
-    },
-  ];
+  });
+
+  const onSubmit = (values) => mutate(values);
+
   return (
     <Form {...form}>
-      {/* <FileUpload setHouseImages={setHouseImages} /> */}
+      <FileUpload setHouseImages={setHouseImages} />
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 my-6 gap-y-2"
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-2 gap-x-8 my-6"
       >
         {formData.map((data) => (
           <AppFormField
-            key={data.name}
+            form={form}
             name={data.name}
+            label={data.label}
             inputType={data.type}
             inputPlaceholder={data.placeholder}
-            label={data.label}
-            form={form}
             isPending={isPending}
           />
         ))}
-        <div className="md:col-span-3 sm:col-span-2 col-span-1">
-          <label htmlFor="houseDesc" className="font-semibold text-sm">
-            House Description
-          </label>
-          <Textarea
-            className="w-full mt-2"
+        <div className="col-span-3">
+          <FormField
+            control={form.control}
             name="houseDesc"
-            id="houseDesc"
-            onChange={(e) => setTextAreaValue(e.target.value)}
-            value={textAreaValue}
-            placeholder="Enter your House Description here...."
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>House Description</FormLabel>
+                <FormControl>
+                  <Textarea
+                    disabled={isPending}
+                    placeholder="Type your message here."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
         </div>
-        <Button type="submit" className="mt-10" disabled={isPending}>
-          Submit
+        <Button type="submit" className="mt-2" disabled={isPending}>
+          Create House
         </Button>
       </form>
     </Form>

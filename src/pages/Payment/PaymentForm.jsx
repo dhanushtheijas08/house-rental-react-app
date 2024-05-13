@@ -38,7 +38,7 @@ const PaymentForm = ({ price }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0 py-5">
           <p className="text-xl font-medium font-space">Payment Page</p>
           <p className="text-gray-400">
             Before proceeding to payment, please review your rental house.
@@ -99,7 +99,7 @@ const PaymentForm = ({ price }) => {
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900">Total</p>
               <p className="text-2xl font-semibold text-gray-900 font-space">
-                {formatIndianRupee(price)}
+                {formatIndianRupee(price || 5000)}
               </p>
             </div>
             <Button size="lg" className="mt-4 w-full">
