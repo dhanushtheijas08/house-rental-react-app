@@ -31,8 +31,8 @@ const Map = ({ markers }) => {
         chunkedLoading
         iconCreateFunction={createClusterCustomIcon}
       >
-        {markers.map((marker) => (
-          <Marker position={geocode} icon={customIcon}>
+        {markers.map((marker, index) => (
+          <Marker position={geocode} key={index} icon={customIcon}>
             <Popup>{popUp}</Popup>
           </Marker>
         ))}

@@ -109,6 +109,7 @@ const CreateNewHouseForm = () => {
       >
         {formData.map((data) => (
           <AppFormField
+            key={data.name}
             form={form}
             name={data.name}
             label={data.label}
