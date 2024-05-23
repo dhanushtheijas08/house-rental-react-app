@@ -10,7 +10,7 @@ const HeroPage = () => {
     <section className="flex flex-col md:flex-row gap-8 justify-between py-6">
       <div className="flex flex-col px-8 mt-12 gap-4 items-center">
         <SectionHeading className="text-center md:text-4xl">
-          Fine Your <br />
+          Find Your <br />
           <RoughNotation
             type="highlight"
             padding={[0, 50]}
